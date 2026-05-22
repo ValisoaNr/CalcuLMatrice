@@ -392,10 +392,17 @@
    <addaction name="actioninitialise"/>
    <addaction name="actiontranspose_A"/>
    <addaction name="actiontranspose_B"/>
-   <addaction name="actionresultat_vers_A"/>
-   <addaction name="actionresultat_vers_B"/>
+   <addaction name="actiontranspose_Resultat"/>
+   <addaction name="actiondeterminant_de_A"/>
+   <addaction name="actiondeterminant_de_B"/>
+   <addaction name="actiondeterminant_du_resultat"/>
+   <addaction name="actionechange_A_et_B"/>
   </widget>
   <action name="actioninitialise">
+   <property name="icon">
+    <iconset resource="ressources.qrc">
+     <normaloff>:/images/initialise.png</normaloff>:/images/initialise.png</iconset>
+   </property>
    <property name="text">
     <string>initialise</string>
    </property>
@@ -429,6 +436,10 @@
    </property>
   </action>
   <action name="actionechange_A_et_B">
+   <property name="icon">
+    <iconset resource="ressources.qrc">
+     <normaloff>:/images/echanger.png</normaloff>:/images/echanger.png</iconset>
+   </property>
    <property name="text">
     <string>echange A et B</string>
    </property>
@@ -440,6 +451,10 @@
    </property>
   </action>
   <action name="actiondeterminant_de_A">
+   <property name="icon">
+    <iconset resource="ressources.qrc">
+     <normaloff>:/images/det_A.png</normaloff>:/images/det_A.png</iconset>
+   </property>
    <property name="text">
     <string>determinant de A</string>
    </property>
@@ -451,6 +466,10 @@
    </property>
   </action>
   <action name="actiondeterminant_de_B">
+   <property name="icon">
+    <iconset resource="ressources.qrc">
+     <normaloff>:/images/det_B.png</normaloff>:/images/det_B.png</iconset>
+   </property>
    <property name="text">
     <string>determinant de B</string>
    </property>
@@ -462,6 +481,10 @@
    </property>
   </action>
   <action name="actiondeterminant_du_resultat">
+   <property name="icon">
+    <iconset resource="ressources.qrc">
+     <normaloff>:/images/det_R.png</normaloff>:/images/det_R.png</iconset>
+   </property>
    <property name="text">
     <string>determinant du resultat</string>
    </property>
@@ -473,6 +496,10 @@
    </property>
   </action>
   <action name="actiontranspose_A">
+   <property name="icon">
+    <iconset resource="ressources.qrc">
+     <normaloff>:/images/transpo_A.png</normaloff>:/images/transpo_A.png</iconset>
+   </property>
    <property name="text">
     <string>transpose A</string>
    </property>
@@ -484,6 +511,10 @@
    </property>
   </action>
   <action name="actiontranspose_B">
+   <property name="icon">
+    <iconset resource="ressources.qrc">
+     <normaloff>:/images/transpo_B.png</normaloff>:/images/transpo_B.png</iconset>
+   </property>
    <property name="text">
     <string>transpose B</string>
    </property>
@@ -495,6 +526,10 @@
    </property>
   </action>
   <action name="actiontranspose_Resultat">
+   <property name="icon">
+    <iconset resource="ressources.qrc">
+     <normaloff>:/images/transpo_R.png</normaloff>:/images/transpo_R.png</iconset>
+   </property>
    <property name="text">
     <string>transpose Resultat</string>
    </property>
@@ -522,6 +557,9 @@
    </property>
   </action>
   <action name="actionvoir_l_apercu">
+   <property name="icon">
+    <iconset theme="QIcon::ThemeIcon::DocumentPrintPreview"/>
+   </property>
    <property name="text">
     <string>voir l'aperçu</string>
    </property>
@@ -533,6 +571,9 @@
    </property>
   </action>
   <action name="actionimprimer_directement">
+   <property name="icon">
+    <iconset theme="QIcon::ThemeIcon::DocumentPrint"/>
+   </property>
    <property name="text">
     <string>imprimer directement</string>
    </property>
@@ -555,6 +596,8 @@
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="ressources.qrc"/>
+ </resources>
  <connections/>
 </ui>

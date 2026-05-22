@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>initialise.png</file>
+        <file>transpo_A.png</file>
+        <file>transpo_B.png</file>
+        <file>transpo_R.png</file>
+        <file>det_B.png</file>
+        <file>det_R.png</file>
+        <file>det_A.png</file>
+        <file>echanger.png</file>
+    </qresource>
+</RCC>

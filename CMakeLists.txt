@@ -1,3 +1,4 @@
+set(CMAKE_AUTORCC ON)
 cmake_minimum_required(VERSION 3.19)
 project(calcuLMatrice LANGUAGES CXX)
 
@@ -12,6 +13,8 @@ qt_add_executable(calcuLMatrice
     Calcule.h
     Calcule.ui
     Matrice.h Matrice.cpp
+    ressources.qrc
+
 )
 
 target_link_libraries(calcuLMatrice

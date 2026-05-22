@@ -7,6 +7,7 @@ Calcule::Calcule(QWidget *parent)
     , ui(new Ui::Calcule)
 {
     ui->setupUi(this);
+    ui->statusbar->addPermanentWidget(new QLabel("Calculatrice Matrice (ma Creation)"));
     initialise();
 
 }
