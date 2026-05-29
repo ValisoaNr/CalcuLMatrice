@@ -133,6 +133,9 @@
         </property>
        </widget>
       </item>
+      <item row="3" column="9">
+       <widget class="QDoubleSpinBox" name="scalaire"/>
+      </item>
       <item row="0" column="10">
        <widget class="QPushButton" name="tailleB">
         <property name="text">
@@ -140,18 +143,23 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0">
-       <widget class="QPushButton" name="determinant">
-        <property name="text">
-         <string>determinant</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="4">
-       <widget class="QLabel" name="label_4">
-        <property name="text">
-         <string>appliquer :</string>
-        </property>
+      <item row="2" column="7">
+       <widget class="QComboBox" name="echange2">
+        <item>
+         <property name="text">
+          <string>A</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>B</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Resultat</string>
+         </property>
+        </item>
        </widget>
       </item>
       <item row="0" column="6">
@@ -164,50 +172,17 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="4" colspan="7">
-       <widget class="QLabel" name="histoLabel">
+      <item row="0" column="2">
+       <widget class="QPushButton" name="moins">
         <property name="text">
-         <string/>
+         <string>-</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="8">
-       <widget class="QLabel" name="label_6">
+      <item row="0" column="4">
+       <widget class="QLabel" name="label_4">
         <property name="text">
-         <string>à</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignmentFlag::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="3" rowspan="4">
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Orientation::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="0">
-       <widget class="QPushButton" name="plus">
-        <property name="text">
-         <string>+</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0" colspan="3">
-       <widget class="QLineEdit" name="reponse"/>
-      </item>
-      <item row="2" column="2">
-       <widget class="QPushButton" name="inverse">
-        <property name="text">
-         <string>inverse</string>
+         <string>appliquer :</string>
         </property>
        </widget>
       </item>
@@ -218,20 +193,31 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="2">
-       <widget class="QPushButton" name="moins">
+      <item row="2" column="4">
+       <widget class="QLabel" name="label_7">
         <property name="text">
-         <string>-</string>
+         <string>echanger :</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="7">
-       <widget class="QSpinBox" name="colonne">
-        <property name="minimum">
-         <number>1</number>
+      <item row="2" column="8" colspan="2">
+       <widget class="QPushButton" name="echanger">
+        <property name="text">
+         <string>Valider</string>
         </property>
-        <property name="maximum">
-         <number>12</number>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QPushButton" name="inverse">
+        <property name="text">
+         <string>inverse</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="4">
+       <widget class="QLabel" name="label_9">
+        <property name="text">
+         <string>multiplier :</string>
         </property>
        </widget>
       </item>
@@ -252,12 +238,15 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="4">
-       <widget class="QLabel" name="label_7">
+      <item row="2" column="0">
+       <widget class="QPushButton" name="determinant">
         <property name="text">
-         <string>echanger :</string>
+         <string>determinant</string>
         </property>
        </widget>
+      </item>
+      <item row="3" column="0" colspan="3">
+       <widget class="QLineEdit" name="reponse"/>
       </item>
       <item row="2" column="5">
        <widget class="QComboBox" name="echange1">
@@ -283,23 +272,21 @@
         </item>
        </widget>
       </item>
-      <item row="2" column="7">
-       <widget class="QComboBox" name="echange2">
-        <item>
-         <property name="text">
-          <string>A</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>B</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Resultat</string>
-         </property>
-        </item>
+      <item row="0" column="0">
+       <widget class="QPushButton" name="plus">
+        <property name="text">
+         <string>+</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="8">
+       <widget class="QLabel" name="label_6">
+        <property name="text">
+         <string>à</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
        </widget>
       </item>
       <item row="2" column="6">
@@ -312,10 +299,47 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="8" colspan="2">
-       <widget class="QPushButton" name="echanger">
+      <item row="0" column="3" rowspan="4">
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Orientation::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="7">
+       <widget class="QSpinBox" name="colonne">
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>12</number>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="8">
+       <widget class="QLabel" name="label_10">
         <property name="text">
-         <string>Valider</string>
+         <string>par</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="5">
+       <widget class="QPushButton" name="afois">
+        <property name="text">
+         <string>A</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="7">
+       <widget class="QPushButton" name="bfois">
+        <property name="text">
+         <string>B</string>
         </property>
        </widget>
       </item>
@@ -545,7 +569,7 @@
     <string>comment calculer ?</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Shift+,</string>
+    <string>F1</string>
    </property>
   </action>
   <action name="actioncomment_imprimer">

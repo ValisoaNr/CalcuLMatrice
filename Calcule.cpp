@@ -1,6 +1,7 @@
 #include "Calcule.h"
 #include "ui_Calcule.h"
 #include <QMessageBox>
+#include <QAction>
 
 Calcule::Calcule(QWidget *parent)
     : QMainWindow(parent)
@@ -36,9 +37,12 @@ Calcule::Calcule(QWidget *parent)
     connect(ui->actiontranspose_B , SIGNAL(triggered()) , this , SLOT(transpose_B()));
     connect(ui->actiontranspose_Resultat , SIGNAL(triggered()) , this , SLOT(transpose_Resultat()));
 
+    connect(ui->actioncomment_calculer , &QAction::triggered , this , &Calcule::comment_calculer);
+    connect(ui->actioncomment_imprimer , &QAction::triggered , this , &Calcule::comment_imprimer);
+    connect(ui->afois , &QPushButton::clicked , this , &Calcule::fois_scalaireA);
+    connect(ui->bfois , &QPushButton::clicked , this , &Calcule::fois_scalaireB);
 
 }
-
 Calcule::~Calcule()
 {
     delete ui;
@@ -71,15 +75,14 @@ void Calcule::initialise()
     ui->colonne->setValue(3);
     m.setElement(tab);
     afficheMatrice(1 , m);
-    afficheMatrice(2 , m*m);
-    afficheMatrice(3 , m.inverse());
+    afficheMatrice(2 , m);
+    afficheMatrice(3 , m);
 }
 void Calcule::afficheMatrice(int numCase , Matrice mat)
 {
     int i , j , nbLigne , nbColonne;
     QTableWidgetItem *valeur;
     QString val;
-    QTableWidget *tab;
 
     nbLigne = mat.getNligne();
     nbColonne = mat.getNcolonne();
@@ -129,6 +132,86 @@ void Calcule::afficheMatrice(int numCase , Matrice mat)
         }
     }
 
+    // activation du menu contextuel
+    tab->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(tab , &QWidget::customContextMenuRequested , this , &Calcule::menu_context);
+}
+void Calcule::menu_context(const QPoint &position)
+{
+    QTableWidget *tableWidget;
+    QMenu menu;
+    QAction *det , *transpo , *inverse , *choix;
+    Matrice mat;
+    QPoint pos;
+
+    det = menu.addAction("determinant");
+    transpo = menu.addAction("transposer");
+    inverse = menu.addAction("inverser");
+    tableWidget = qobject_cast<QTableWidget*>(sender());
+    mat = prendMatrice(tableWidget);
+
+    pos = tableWidget->viewport()->mapToGlobal(position);
+    choix = menu.exec(pos);
+
+    if(choix == det)
+    {
+        ui->reponse->setText("determinant = " + QString::number(mat.determinant()));
+    }
+    else if(choix == inverse)
+    {
+        afficheMatrice(3 , mat.inverse());
+    }
+    else if(choix == transpo)
+    {
+        afficheMatrice(3 , mat.transposer());
+    }
+}
+Matrice Calcule::prendMatrice(QTableWidget *table)
+{
+    QTableWidgetItem *item ;
+    Matrice mat;
+    QString msg ;
+    vector<vector<double>> contenu;
+    double val ;
+    int lignes ,  colonnes , i , j;
+    bool ok;
+
+    lignes = table->rowCount();
+    colonnes = table->columnCount();
+    if((lignes == 0) || (colonnes == 0))
+    {
+        QMessageBox::warning(this , "Erreur" , "la matrice est vide");
+        return Matrice();
+    }
+
+    mat.redimensionner(lignes , colonnes);
+    contenu.resize(lignes , vector<double>(colonnes));
+    for(i=0 ; i<lignes; i++)
+    {
+        for(j=0 ; j<colonnes ; j++)
+        {
+            item = table->item(i, j);
+            if(!item)
+            {
+                contenu[i][j] = 0.0;
+                continue;
+            }
+            val = item->text().toDouble(&ok);
+            if(!ok)
+            {
+                msg = "Erreur a la position (ligne , colonne) = (" + QString::number(i) + "," + QString::number(j) + ")" ;
+                QMessageBox::warning(this, "Erreur de saisie", msg);
+                contenu[i][j] = 0.0;
+            }
+            else
+            {
+                contenu[i][j] = val;
+            }
+        }
+    }
+
+    mat.setElement(contenu);
+    return (mat);
 }
 Matrice Calcule::prendMatrice(int numCase)
 {
@@ -308,7 +391,7 @@ void Calcule::inverse()
     Matrice A ;
     double det;
 
-    reponse = QMessageBox::question(this , "Calcule la matrice inverse" ,"Veuillez choisir la matrice ." , "matrice A" , "matrice B" , "le resultat");
+    reponse = QMessageBox::question(this , "Calcule la matrice inverse" , "Veuillez choisir la matrice ." , "matrice A" , "matrice B" , "le resultat");
 
     reponse += 1;
     A = prendMatrice(reponse);
@@ -428,7 +511,10 @@ void Calcule::editer_taille()
 {
     ui->ligne->setFocus();
 }
-
+void Calcule::on_ligne_returnPressed()
+{
+    ui->colonne->setFocus();
+}
 void Calcule::echanger()
 {
     int indice1 , indice2;
@@ -442,4 +528,71 @@ void Calcule::echanger()
 
     afficheMatrice(indice2 , A);
     afficheMatrice(indice1 , B);
+}
+void Calcule::comment_calculer()
+{
+    QString aide_calculer;
+
+    aide_calculer = "<h2>Comment faire la calcule sur les matrices ?<h2>";
+    aide_calculer.append("<h4>1_somme :<h4>");
+    aide_calculer.append("<p>Pour faire la somme de deux matrices , il suffit"
+                         " d'introduire l'une dans le champ de la matrice A "
+                         "et l'autre dans B , puis appuyer sur le boutton '+'.</p>");
+    aide_calculer.append("<h4>2_soustraction :<h4>");
+    aide_calculer.append("<p>Pour faire la soustraction de deux matrices , il suffit"
+                         " d'introduire l'une dans le champ de la matrice A "
+                         "et l'autre dans B , puis appuyer sur le boutton '-'.</p>");
+    aide_calculer.append("<h4>3_multiplication :<h4>");
+    aide_calculer.append("<p>Pour faire la multiplication de deux matrices , il suffit"
+                         " d'introduire l'une dans le champ de la matrice A "
+                         "et l'autre dans B , puis appuyer sur le boutton '*'.</p>");
+    aide_calculer.append("<h4>4_multiplication d'un matrices avec un scalaire :<h4>");
+    aide_calculer.append("<p>Il suffit d'introduire la valeur du scalaire dans le champs "
+                         "qui attends un valeur reel sur la meme ligne que \"multiplier :\""
+                         " Et d'appuyer sur A ou B sur lequel vous voulez multiplier .</p>");
+    aide_calculer.append("<h4>5_determinant :<h4>");
+    aide_calculer.append("<p>Pour calculer le determinant d'une matrice , il suffit"
+                         " d'appuyer sur le boutton 'determinant' ou voir dans menu ou sur la bar d'outil"
+                         " comme 'det(A)' , 'det(B)' , 'det(R)'.</p>");
+    aide_calculer.append("<h4>6_transposer :<h4>");
+    aide_calculer.append("<p>Pour calculer la transposée d'une matrice , il suffit"
+                         " d'appuyer sur le boutton 'transpose' ou voir dans menu ou sur la bar d'outil"
+                         " comme 'tA' , 'tB' , 'tR'.</p>");
+    aide_calculer.append("<h4>7_inverser :<h4>");
+    aide_calculer.append("<p>Pour calculer l'inverse d'une matrice , il suffit"
+                         " d'appuyer sur le boutton 'inverse' ou clic droit sur "
+                         "la matrice et appuyer inverser .</p>");
+
+    QMessageBox::about(this , "CALCULE SUR LES MATRICES" , aide_calculer);
+}
+void Calcule::comment_imprimer()
+{
+    QString aide_imprimer;
+
+    aide_imprimer = "<h2>Impression de l'historique ?<h2>";
+    aide_imprimer.append("<h4>1_voir l'aperçu :<h4>");
+    aide_imprimer.append("<p>Voir l'aperçu avant d'imprimer ou pas l'historique "
+                         "des calcules .</p>");
+    aide_imprimer.append("<h4>2_imprimer dirctement :<h4>");
+    aide_imprimer.append("<p>C'est pour imprimer directement l'historique des calcules"
+                         "sans voir l'aperçu.</p>");
+
+    QMessageBox::about(this , "CALCULE SUR LES MATRICES" , aide_imprimer);
+}
+void Calcule::fois_scalaireA()
+{
+    Matrice A;
+
+    A = prendMatrice(1);
+    A = A * ui->scalaire->value();
+    afficheMatrice(3 , A);
+}
+void Calcule::fois_scalaireB()
+{
+    Matrice A;
+
+    A = prendMatrice(2);
+    A = A * ui->scalaire->value();
+    afficheMatrice(3 , A);
+
 }

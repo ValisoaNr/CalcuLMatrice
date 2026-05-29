@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "Matrice.h"
+#include <QTableWidget>
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -20,6 +21,7 @@ class Calcule : public QMainWindow
         ~Calcule() override;
         void afficheMatrice(int numCase , Matrice mat);
         Matrice prendMatrice(int numCase);
+        Matrice prendMatrice(QTableWidget *table);
 
     private slots:
         void initialise();
@@ -42,8 +44,15 @@ class Calcule : public QMainWindow
         void determinant_du_resultat();
         void editer_taille();
         void echanger();
+        void on_ligne_returnPressed();
+        void comment_calculer();
+        void comment_imprimer();
+        void fois_scalaireA();
+        void fois_scalaireB();
+        void menu_context(const QPoint &position);
 
     private:
         Ui::Calcule *ui;
+        QTableWidget *tab;
 };
 #endif // CALCULE_H

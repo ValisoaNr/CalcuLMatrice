@@ -17,9 +17,17 @@ Matrice::~Matrice()
 }
 void Matrice::redimensionner(int li , int co)
 {
+    int i;
+
     setNligne(li);
     setNcolonne(co);
     element.resize(li , vector<double>(co));
+
+    for(i=0 ; i<li ; i++)
+    {
+        element[i].resize(co , 0.0);
+    }
+
 }
 Matrice Matrice::operator+(Matrice autre)
 {
@@ -73,7 +81,7 @@ Matrice Matrice::operator-(Matrice autre)
 
     return (soustrait);
 }
-Matrice Matrice::operator*(double scalaire)
+Matrice Matrice::operator*(double valeur)
 {
     Matrice produit;
     int i , j;
@@ -85,7 +93,7 @@ Matrice Matrice::operator*(double scalaire)
     {
         for(j=0 ; j<nColonne ; j++)
         {
-            tab[i][j] *= scalaire;
+            tab[i][j] = element[i][j] * valeur;
         }
     }
     produit.setElement(tab);
