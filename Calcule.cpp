@@ -10,6 +10,33 @@ Calcule::Calcule(QWidget *parent)
     ui->statusbar->addPermanentWidget(new QLabel("Calculatrice Matrice (ma Creation)"));
     initialise();
 
+    connect(ui->actioninitialise , SIGNAL(triggered()) , this , SLOT(initialise()));
+    connect(ui->actiondeterminant_de_A , SIGNAL(triggered()) , this , SLOT(determinant_de_A()));
+    connect(ui->actiondeterminant_de_B , SIGNAL(triggered()) , this , SLOT(determinant_de_B()));
+    connect(ui->actiondeterminant_du_resultat , SIGNAL(triggered()) , this , SLOT(determinant_du_resultat()));
+
+    connect(ui->plus , &QPushButton::clicked , this , &Calcule::plus);
+    connect(ui->fois , &QPushButton::clicked , this , &Calcule::fois);
+    connect(ui->moins , &QPushButton::clicked , this , &Calcule::moins);
+
+    connect(ui->actionediter_taille , SIGNAL(triggered()) , this , SLOT(editer_taille()));
+    connect(ui->actionechange_A_et_B , SIGNAL(triggered()) , this , SLOT(echange_A_et_B()));
+    connect(ui->echanger , SIGNAL(clicked()) , this , SLOT(echanger()));
+
+    connect(ui->tailleA , &QPushButton::clicked , this , &Calcule::tailleA);
+    connect(ui->tailleB , &QPushButton::clicked , this , &Calcule::tailleB);
+
+    connect(ui->actionresultat_vers_A , SIGNAL(triggered()) , this , SLOT(resultat_vers_A()));
+    connect(ui->actionresultat_vers_B , SIGNAL(triggered()) , this , SLOT(resultat_vers_B()));
+    connect(ui->determinant , SIGNAL(clicked()) , this , SLOT(determinant()));
+    connect(ui->inverse , SIGNAL(clicked()) , this , SLOT(inverse()));
+
+    connect(ui->transpose , SIGNAL(clicked()) , this , SLOT(transpose()));
+    connect(ui->actiontranspose_A , SIGNAL(triggered()) , this , SLOT(transpose_A()));
+    connect(ui->actiontranspose_B , SIGNAL(triggered()) , this , SLOT(transpose_B()));
+    connect(ui->actiontranspose_Resultat , SIGNAL(triggered()) , this , SLOT(transpose_Resultat()));
+
+
 }
 
 Calcule::~Calcule()
@@ -175,7 +202,7 @@ Matrice Calcule::prendMatrice(int numCase)
     mat.setElement(contenu);
     return (mat);
 }
-void Calcule::on_plus_clicked()
+void Calcule::plus()
 {
     Matrice A , B;
 
@@ -193,7 +220,7 @@ void Calcule::on_plus_clicked()
         afficheMatrice(3 , A+B);
     }
 }
-void Calcule::on_fois_clicked()
+void Calcule::fois()
 {
     Matrice A , B;
 
@@ -213,7 +240,7 @@ void Calcule::on_fois_clicked()
 }
 
 
-void Calcule::on_moins_clicked()
+void Calcule::moins()
 {
     Matrice A , B;
 
@@ -231,7 +258,7 @@ void Calcule::on_moins_clicked()
         afficheMatrice(3 , A-B);
     }
 }
-void Calcule::on_determinant_clicked()
+void Calcule::determinant()
 {
     int reponse ;
     Matrice A ;
@@ -244,7 +271,7 @@ void Calcule::on_determinant_clicked()
     ui->reponse->setText("determinant = " + QString::number(det));
 }
 
-void Calcule::on_transpose_clicked()
+void Calcule::transpose()
 {
     int reponse ;
     Matrice A ;
@@ -275,7 +302,7 @@ void Calcule::on_transpose_clicked()
     }
 }
 
-void Calcule::on_inverse_clicked()
+void Calcule::inverse()
 {
     int reponse ;
     Matrice A ;
@@ -295,7 +322,7 @@ void Calcule::on_inverse_clicked()
     }
 
 }
-void Calcule::on_tailleA_clicked()
+void Calcule::tailleA()
 {
     Matrice A;
     int ligne , colonne;
@@ -307,7 +334,7 @@ void Calcule::on_tailleA_clicked()
 
     afficheMatrice(1 , A);
 }
-void Calcule::on_tailleB_clicked()
+void Calcule::tailleB()
 {
     Matrice A;
     int ligne , colonne;
@@ -319,25 +346,21 @@ void Calcule::on_tailleB_clicked()
 
     afficheMatrice(2 , A);
 }
-void Calcule::on_actioninitialise_triggered()
-{
-    initialise();
-}
-void Calcule::on_actionresultat_vers_A_triggered()
+void Calcule::resultat_vers_A()
 {
     Matrice A;
 
     A = prendMatrice(3);
     afficheMatrice(1 , A);
 }
-void Calcule::on_actionresultat_vers_B_triggered()
+void Calcule::resultat_vers_B()
 {
     Matrice A;
 
     A = prendMatrice(3);
     afficheMatrice(2 , A);
 }
-void Calcule::on_actionechange_A_et_B_triggered()
+void Calcule::echange_A_et_B()
 {
     Matrice A , B;
 
@@ -347,7 +370,7 @@ void Calcule::on_actionechange_A_et_B_triggered()
     afficheMatrice(1 , B);
     afficheMatrice(2 , A);
 }
-void Calcule::on_actiontranspose_A_triggered()
+void Calcule::transpose_A()
 {
     Matrice A;
 
@@ -355,7 +378,7 @@ void Calcule::on_actiontranspose_A_triggered()
     A = A.transposer();
     afficheMatrice(1 , A);
 }
-void Calcule::on_actiontranspose_B_triggered()
+void Calcule::transpose_B()
 {
     Matrice A;
 
@@ -363,7 +386,7 @@ void Calcule::on_actiontranspose_B_triggered()
     A = A.transposer();
     afficheMatrice(2 , A);
 }
-void Calcule::on_actiontranspose_Resultat_triggered()
+void Calcule::transpose_Resultat()
 {
     Matrice A;
 
@@ -371,7 +394,7 @@ void Calcule::on_actiontranspose_Resultat_triggered()
     A = A.transposer();
     afficheMatrice(3 , A);
 }
-void Calcule::on_actiondeterminant_de_A_triggered()
+void Calcule::determinant_de_A()
 {
     Matrice A;
     double det;
@@ -381,7 +404,7 @@ void Calcule::on_actiondeterminant_de_A_triggered()
 
     ui->reponse->setText("determinant de A : " + QString::number(det));
 }
-void Calcule::on_actiondeterminant_de_B_triggered()
+void Calcule::determinant_de_B()
 {
     Matrice A;
     double det;
@@ -391,7 +414,7 @@ void Calcule::on_actiondeterminant_de_B_triggered()
 
     ui->reponse->setText("determinant de B : " + QString::number(det));
 }
-void Calcule::on_actiondeterminant_du_resultat_triggered()
+void Calcule::determinant_du_resultat()
 {
     Matrice A;
     double det;
@@ -401,12 +424,12 @@ void Calcule::on_actiondeterminant_du_resultat_triggered()
 
     ui->reponse->setText("determinant de resultat : " + QString::number(det));
 }
-void Calcule::on_actionediter_taille_triggered()
+void Calcule::editer_taille()
 {
     ui->ligne->setFocus();
 }
 
-void Calcule::on_echanger_clicked()
+void Calcule::echanger()
 {
     int indice1 , indice2;
     Matrice A , B;
@@ -420,4 +443,3 @@ void Calcule::on_echanger_clicked()
     afficheMatrice(indice2 , A);
     afficheMatrice(indice1 , B);
 }
-

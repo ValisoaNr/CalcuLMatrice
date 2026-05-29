@@ -338,7 +338,7 @@
     </property>
     <widget class="QMenu" name="menuimprimer_l_historique">
      <property name="title">
-      <string>imprimer l'historique</string>
+      <string>imprimer</string>
      </property>
      <addaction name="actionvoir_l_apercu"/>
      <addaction name="actionimprimer_directement"/>

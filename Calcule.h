@@ -23,27 +23,25 @@ class Calcule : public QMainWindow
 
     private slots:
         void initialise();
-        void on_plus_clicked();
-        void on_fois_clicked();
-        void on_moins_clicked();
-        void on_determinant_clicked();
-        void on_transpose_clicked();
-        void on_inverse_clicked();
-        void on_tailleA_clicked();
-        void on_tailleB_clicked();
-        void on_actioninitialise_triggered();
-        void on_actionresultat_vers_A_triggered();
-        void on_actionresultat_vers_B_triggered();
-        void on_actionechange_A_et_B_triggered();
-        void on_actiontranspose_A_triggered();
-        void on_actiontranspose_B_triggered();
-        void on_actiontranspose_Resultat_triggered();
-        void on_actiondeterminant_de_A_triggered();
-        void on_actiondeterminant_de_B_triggered();
-        void on_actiondeterminant_du_resultat_triggered();
-        void on_actionediter_taille_triggered();
-
-        void on_echanger_clicked();
+        void plus();
+        void fois();
+        void moins();
+        void determinant();
+        void transpose();
+        void inverse();
+        void tailleA();
+        void tailleB();
+        void resultat_vers_A();
+        void resultat_vers_B();
+        void echange_A_et_B();
+        void transpose_A();
+        void transpose_B();
+        void transpose_Resultat();
+        void determinant_de_A();
+        void determinant_de_B();
+        void determinant_du_resultat();
+        void editer_taille();
+        void echanger();
 
     private:
         Ui::Calcule *ui;
